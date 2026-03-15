@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "muelitas",
+    "name": "Muelitas",
     "slug": "muelitas",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,7 +17,9 @@
         "backgroundColor": "#FFFBF0"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": ["android.permission.RECORD_AUDIO"],
+      "package": "com.sebastiangaitandev.muelitas"
     },
     "web": {
       "output": "static",
@@ -48,6 +50,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "f44eb8e8-152b-40c0-8a5a-b6fa48e56d09"
+      }
     }
   }
 }

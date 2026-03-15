@@ -38,62 +38,62 @@ export default function BrushTimer({
   onComplete,
 }: Props) {
   const [timerState, setTimerState] = useState<TimerState>('idle');
-  const [progress, setProgress] = useState(0);
   const [timeLabel, setTimeLabel] = useState('00:00 / 00:00');
   const scaleAnim = useRef(new Animated.Value(0)).current;
   const progressAnim = useRef(new Animated.Value(0)).current;
+  const doneRef = useRef(false);
 
   const player = useVideoPlayer(
-    require('../../assets/videos/plim-plim-cepillarnos.mp4'),
+    require('../../assets/videos/brush_song.mp4'),
     (p) => {
       p.loop = false;
       p.pause();
     },
   );
 
-  // ── Track playback progress ───────────────────────────
+  // ── Poll progress only while playing ─────────────────
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (!player) return;
+    if (timerState !== 'playing') return;
 
+    const interval = setInterval(() => {
       const pos = player.currentTime ?? 0;
       const dur = player.duration ?? 0;
 
       if (dur > 0) {
-        const p = pos / dur;
-        setProgress(p);
+        const p = Math.min(pos / dur, 1);
         Animated.timing(progressAnim, {
           toValue: p,
-          duration: 300,
+          duration: 200,
           useNativeDriver: false,
         }).start();
         setTimeLabel(`${formatTime(pos)} / ${formatTime(dur)}`);
-      }
 
-      // Detect finish
-      if (dur > 0 && pos >= dur - 0.5) {
-        clearInterval(interval);
-        setTimerState('done');
-        Animated.spring(scaleAnim, {
-          toValue: 1,
-          tension: 50,
-          friction: 6,
-          useNativeDriver: true,
-        }).start();
+        if (!doneRef.current && pos >= dur - 0.5) {
+          doneRef.current = true;
+          clearInterval(interval);
+          setTimerState('done');
+          Animated.spring(scaleAnim, {
+            toValue: 1,
+            tension: 50,
+            friction: 6,
+            useNativeDriver: true,
+          }).start();
+        }
       }
-    }, 500);
+    }, 300);
 
     return () => clearInterval(interval);
-  }, [player, timerState]);
+  }, [timerState]);
 
   // ── Reset when modal opens/closes ─────────────────────
   useEffect(() => {
     if (visible) {
       setTimerState('idle');
-      setProgress(0);
+      setTimeLabel('00:00 / 00:00');
       progressAnim.setValue(0);
       scaleAnim.setValue(0);
-      player.seekBy(-player.currentTime); // seek to 0
+      doneRef.current = false;
+      player.seekBy(-(player.currentTime ?? 0));
       player.pause();
     } else {
       player.pause();
