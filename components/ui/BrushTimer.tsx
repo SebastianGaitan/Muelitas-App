@@ -44,7 +44,7 @@ export default function BrushTimer({
   const doneRef = useRef(false);
 
   const player = useVideoPlayer(
-    require('../../assets/videos/brush_song.mp4'),
+    require('../../assets/videos/plim-plim-cepillarnos.mp4'),
     (p) => {
       p.loop = false;
       p.pause();
