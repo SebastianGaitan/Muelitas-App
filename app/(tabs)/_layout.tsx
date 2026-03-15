@@ -1,33 +1,50 @@
+// app/(tabs)/_layout.tsx
 import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import {
+  IconBook,
+  IconCalendar,
+  IconDeviceGamepad2,
+} from '@tabler/icons-react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: '#FF6B9D',
+        tabBarInactiveTintColor: '#aaa',
+        tabBarStyle: {
+          backgroundColor: '#FFFBF0',
+          borderTopWidth: 0,
+          elevation: 10,
+        },
         headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="learn"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Learn',
+          tabBarIcon: ({ color, size }) => (
+            <IconBook stroke={color} size={size} strokeWidth={2} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="agenda"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Agenda',
+          tabBarIcon: ({ color, size }) => (
+            <IconCalendar stroke={color} size={size} strokeWidth={2} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="games"
+        options={{
+          title: 'Games',
+          tabBarIcon: ({ color, size }) => (
+            <IconDeviceGamepad2 stroke={color} size={size} strokeWidth={2} />
+          ),
         }}
       />
     </Tabs>

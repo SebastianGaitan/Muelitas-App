@@ -1,0 +1,78 @@
+{
+  "rows": 7,
+  "cols": 9,
+  "words": [
+    {
+      "id": 1,
+      "number": 1,
+      "direction": "across",
+      "row": 0,
+      "col": 3,
+      "answer": "DECAY",
+      "clue": "What sugar does to your teeth"
+    },
+    {
+      "id": 2,
+      "number": 1,
+      "direction": "down",
+      "row": 0,
+      "col": 3,
+      "answer": "DENTIST",
+      "clue": "The doctor who takes care of your teeth"
+    },
+    {
+      "id": 3,
+      "number": 2,
+      "direction": "across",
+      "row": 1,
+      "col": 3,
+      "answer": "ENAMEL",
+      "clue": "Hard outer layer that protects your tooth"
+    },
+    {
+      "id": 4,
+      "number": 3,
+      "direction": "across",
+      "row": 2,
+      "col": 1,
+      "answer": "RINSE",
+      "clue": "Wash your mouth with water or mouthwash"
+    },
+    {
+      "id": 5,
+      "number": 4,
+      "direction": "across",
+      "row": 3,
+      "col": 3,
+      "answer": "TOOTH",
+      "clue": "Hard white object in your mouth"
+    },
+    {
+      "id": 6,
+      "number": 5,
+      "direction": "across",
+      "row": 4,
+      "col": 1,
+      "answer": "SMILE",
+      "clue": "Show your happy healthy teeth!"
+    },
+    {
+      "id": 7,
+      "number": 6,
+      "direction": "across",
+      "row": 5,
+      "col": 0,
+      "answer": "FLOSS",
+      "clue": "Thin thread used to clean between teeth"
+    },
+    {
+      "id": 8,
+      "number": 7,
+      "direction": "across",
+      "row": 6,
+      "col": 3,
+      "answer": "TARTAR",
+      "clue": "Hard buildup on teeth if you don't brush"
+    }
+  ]
+}

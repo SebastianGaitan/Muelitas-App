@@ -1,0 +1,133 @@
+{
+  "rows": 12,
+  "cols": 12,
+  "grid": [
+    ["L", "E", "N", "A", "M", "E", "L", "Z", "J", "H", "B", "C"],
+    ["R", "H", "S", "C", "C", "X", "T", "O", "O", "T", "H", "A"],
+    ["I", "P", "C", "Y", "R", "Y", "E", "E", "V", "P", "R", "V"],
+    ["N", "F", "I", "Q", "T", "N", "G", "R", "Y", "X", "W", "I"],
+    ["S", "G", "W", "H", "J", "M", "V", "U", "L", "O", "Q", "T"],
+    ["E", "O", "D", "S", "F", "H", "H", "C", "K", "A", "S", "Y"],
+    ["R", "H", "S", "U", "H", "L", "A", "C", "R", "B", "P", "W"],
+    ["U", "B", "H", "R", "C", "B", "O", "A", "K", "R", "L", "C"],
+    ["Q", "H", "I", "B", "V", "P", "L", "S", "G", "A", "A", "R"],
+    ["E", "X", "S", "S", "P", "O", "H", "Z", "S", "C", "Q", "P"],
+    ["Z", "N", "G", "D", "M", "G", "U", "M", "S", "E", "U", "D"],
+    ["V", "N", "L", "N", "N", "O", "X", "B", "V", "S", "E", "U"]
+  ],
+  "words": [
+    {
+      "word": "BRUSH",
+      "clue": "Clean your teeth with this",
+      "cells": [
+        [8, 3],
+        [7, 3],
+        [6, 3],
+        [5, 3],
+        [4, 3]
+      ]
+    },
+    {
+      "word": "FLOSS",
+      "clue": "Clean between your teeth",
+      "cells": [
+        [5, 4],
+        [6, 5],
+        [7, 6],
+        [8, 7],
+        [9, 8]
+      ]
+    },
+    {
+      "word": "CAVITY",
+      "clue": "A hole caused by tooth decay",
+      "cells": [
+        [0, 11],
+        [1, 11],
+        [2, 11],
+        [3, 11],
+        [4, 11],
+        [5, 11]
+      ]
+    },
+    {
+      "word": "TOOTH",
+      "clue": "Hard white thing in your mouth",
+      "cells": [
+        [1, 6],
+        [1, 7],
+        [1, 8],
+        [1, 9],
+        [1, 10]
+      ]
+    },
+    {
+      "word": "MOLAR",
+      "clue": "Big flat tooth at the back",
+      "cells": [
+        [10, 4],
+        [9, 5],
+        [8, 6],
+        [7, 7],
+        [6, 8]
+      ]
+    },
+    {
+      "word": "GUMS",
+      "clue": "Pink tissue holding your teeth",
+      "cells": [
+        [10, 5],
+        [10, 6],
+        [10, 7],
+        [10, 8]
+      ]
+    },
+    {
+      "word": "PLAQUE",
+      "clue": "Sticky film that damages teeth",
+      "cells": [
+        [6, 10],
+        [7, 10],
+        [8, 10],
+        [9, 10],
+        [10, 10],
+        [11, 10]
+      ]
+    },
+    {
+      "word": "RINSE",
+      "clue": "Wash your mouth with water",
+      "cells": [
+        [1, 0],
+        [2, 0],
+        [3, 0],
+        [4, 0],
+        [5, 0]
+      ]
+    },
+    {
+      "word": "BRACES",
+      "clue": "Metal wires that straighten teeth",
+      "cells": [
+        [6, 9],
+        [7, 9],
+        [8, 9],
+        [9, 9],
+        [10, 9],
+        [11, 9]
+      ]
+    },
+    {
+      "word": "ENAMEL",
+      "clue": "Hard outer layer of your tooth",
+      "cells": [
+        [0, 1],
+        [0, 2],
+        [0, 3],
+        [0, 4],
+        [0, 5],
+        [0, 6]
+      ]
+    }
+  ]
+}
