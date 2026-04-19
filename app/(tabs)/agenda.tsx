@@ -14,6 +14,7 @@ import {
   IconLogout,
 } from '@tabler/icons-react-native';
 import { useUser, BrushSession, todayKey } from '@/context/UserContext';
+import { useVideoPlayer } from 'expo-video';
 import CoinsDisplay from '@/components/ui/CoinsDisplay';
 import BrushTimer from '@/components/ui/BrushTimer';
 import BrushCalendar from '@/components/ui/BrushCalendar';
@@ -56,6 +57,15 @@ export default function BrushScreen() {
   const { activeUser, brushLog, logBrush, loadBrushLog, logout } = useUser();
   const router = useRouter();
 
+  // Preload video at screen level so Android has time to load metadata
+  const brushPlayer = useVideoPlayer(
+    require('../../assets/videos/plim-plim-cepillarnos.mp4'),
+    (p) => {
+      p.loop = false;
+      p.pause();
+    },
+  );
+
   const [calendarMode, setCalendarMode] = useState<CalendarMode>('weekly');
   const [activeSession, setActiveSession] = useState<BrushSession | null>(null);
   const [timerVisible, setTimerVisible] = useState(false);
@@ -93,7 +103,9 @@ export default function BrushScreen() {
     setActiveSession(null);
   };
 
-  const activeSessionConfig = SESSIONS.find((s) => s.id === activeSession);
+  const activeSessionConfig = SESSIONS.find(
+    (sess) => sess.id === activeSession,
+  );
   const accentColor = activeUser?.borderColor ?? '#FF6B9D';
 
   return (
@@ -224,6 +236,7 @@ export default function BrushScreen() {
       {/* ── Timer modal ────────────────────────────────── */}
       {activeSession && activeSessionConfig && (
         <BrushTimer
+          player={brushPlayer}
           visible={timerVisible}
           session={activeSession}
           sessionColor={activeSessionConfig.color}

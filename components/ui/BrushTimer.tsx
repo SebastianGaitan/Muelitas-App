@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 import { View, Text, TouchableOpacity, Modal, Animated } from 'react-native';
-import { useVideoPlayer, VideoView } from 'expo-video';
+import { VideoPlayer, VideoView } from 'expo-video';
 import { IconCoin } from '@tabler/icons-react-native';
 import { BrushSession } from '@/context/UserContext';
 import { brushTimerStyles as s } from '@/styles/ui/brushTimerStyles';
@@ -10,12 +10,15 @@ import { brushTimerStyles as s } from '@/styles/ui/brushTimerStyles';
 const COINS_PER_BRUSH = 5;
 const BONUS_ALL_THREE = 10;
 
+const VIDEO_DURATION_SECS = 164;
+
 type Props = {
   visible: boolean;
   session: BrushSession;
   sessionColor: string;
   sessionIcon: ReactElement;
   isBonus: boolean;
+  player: VideoPlayer;
   onClose: () => void;
   onComplete: () => void;
 };
@@ -34,90 +37,109 @@ export default function BrushTimer({
   sessionColor,
   sessionIcon,
   isBonus,
+  player,
   onClose,
   onComplete,
 }: Props) {
   const [timerState, setTimerState] = useState<TimerState>('idle');
-  const [timeLabel, setTimeLabel] = useState('00:00 / 00:00');
   const scaleAnim = useRef(new Animated.Value(0)).current;
   const progressAnim = useRef(new Animated.Value(0)).current;
   const doneRef = useRef(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startTimeRef = useRef<number>(0);
 
-  const player = useVideoPlayer(
-    require('../../assets/videos/plim-plim-cepillarnos.mp4'),
-    (p) => {
-      p.loop = false;
-      p.pause();
-    },
-  );
+  const clearPoller = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
 
-  // ── Poll progress only while playing ─────────────────
-  useEffect(() => {
-    if (timerState !== 'playing') return;
+  const triggerDone = () => {
+    if (doneRef.current) return;
+    doneRef.current = true;
+    clearPoller();
+    Animated.timing(progressAnim, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+    setTimerState('done');
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      tension: 50,
+      friction: 6,
+      useNativeDriver: true,
+    }).start();
+  };
 
-    const interval = setInterval(() => {
-      const pos = player.currentTime ?? 0;
-      const dur = player.duration ?? 0;
+  const startPoller = () => {
+    clearPoller();
+    startTimeRef.current = Date.now();
+    let notPlayingCount = 0;
 
-      if (dur > 0) {
-        const p = Math.min(pos / dur, 1);
+    setTimeout(() => {
+      intervalRef.current = setInterval(() => {
+        const pos = player.currentTime ?? 0;
+        const dur = player.duration ?? 0;
+        const playing = (player as any).playing ?? true;
+
+        // Use real duration if available and sane (iOS), otherwise use hardcoded constant (Android)
+        const totalDuration =
+          dur > 0 && dur < 86400 ? dur : VIDEO_DURATION_SECS;
+
+        const p = Math.min(pos / totalDuration, 0.98);
         Animated.timing(progressAnim, {
           toValue: p,
           duration: 200,
           useNativeDriver: false,
         }).start();
-        setTimeLabel(`${formatTime(pos)} / ${formatTime(dur)}`);
 
-        if (!doneRef.current && pos >= dur - 0.5) {
-          doneRef.current = true;
-          clearInterval(interval);
-          setTimerState('done');
-          Animated.spring(scaleAnim, {
-            toValue: 1,
-            tension: 50,
-            friction: 6,
-            useNativeDriver: true,
-          }).start();
+        // End detection: position-based (iOS) or debounced !playing (Android)
+        if (dur > 0 && dur < 86400) {
+          if (!doneRef.current && pos >= dur - 1.5) triggerDone();
+        } else {
+          if (!playing) {
+            notPlayingCount++;
+            if (!doneRef.current && notPlayingCount >= 3) triggerDone();
+          } else {
+            notPlayingCount = 0;
+          }
         }
-      }
-    }, 300);
-
-    return () => clearInterval(interval);
-  }, [timerState]);
+      }, 300);
+    }, 800);
+  };
 
   // ── Reset when modal opens/closes ─────────────────────
   useEffect(() => {
     if (visible) {
+      clearPoller();
       setTimerState('idle');
-      setTimeLabel('00:00 / 00:00');
       progressAnim.setValue(0);
       scaleAnim.setValue(0);
       doneRef.current = false;
       player.seekBy(-(player.currentTime ?? 0));
       player.pause();
     } else {
+      clearPoller();
       player.pause();
     }
   }, [visible]);
 
+  useEffect(() => {
+    return () => clearPoller();
+  }, []);
+
   const handleStart = () => {
     setTimerState('playing');
     player.play();
+    startPoller();
   };
 
   const handleClose = () => {
+    clearPoller();
     player.pause();
     onClose();
-  };
-
-  const formatTime = (secs: number) => {
-    const m = Math.floor(secs / 60)
-      .toString()
-      .padStart(2, '0');
-    const s = Math.floor(secs % 60)
-      .toString()
-      .padStart(2, '0');
-    return `${m}:${s}`;
   };
 
   const coinsEarned = isBonus
@@ -148,7 +170,6 @@ export default function BrushTimer({
                 </Text>
               </View>
 
-              {/* Video */}
               <View style={s.videoWrapper}>
                 <VideoView
                   player={player}
@@ -156,8 +177,6 @@ export default function BrushTimer({
                   contentFit="cover"
                   nativeControls={false}
                 />
-
-                {/* Progress bar */}
                 <View style={s.progressTrack}>
                   <Animated.View
                     style={[
@@ -165,11 +184,6 @@ export default function BrushTimer({
                       { width: progressWidth, backgroundColor: sessionColor },
                     ]}
                   />
-                </View>
-
-                {/* Time label */}
-                <View style={s.timeOverlay}>
-                  <Text style={s.timeText}>{timeLabel}</Text>
                 </View>
               </View>
 

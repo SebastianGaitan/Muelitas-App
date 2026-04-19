@@ -37,6 +37,7 @@ type UserContextType = {
   brushLog: BrushLog;
   setActiveUser: (user: User) => void;
   addCoins: (amount: number) => Promise<void>;
+  spendCoins: (amount: number) => Promise<boolean>;
   logBrush: (session: BrushSession) => Promise<void>;
   loadBrushLog: () => Promise<void>;
   logout: () => void;
@@ -47,6 +48,7 @@ const UserContext = createContext<UserContextType>({
   brushLog: {},
   setActiveUser: () => {},
   addCoins: async () => {},
+  spendCoins: async () => false,
   logBrush: async () => {},
   loadBrushLog: async () => {},
   logout: () => {},
@@ -102,6 +104,35 @@ export function UserProvider({ children }: { children: ReactNode }) {
     [activeUser],
   );
 
+  // ── Spend coins (returns false if insufficient) ───────
+  const spendCoins = useCallback(
+    async (amount: number): Promise<boolean> => {
+      if (!activeUser) return false;
+      if ((activeUser.coins ?? 0) < amount) return false;
+      const updatedUser = {
+        ...activeUser,
+        coins: (activeUser.coins ?? 0) - amount,
+      };
+      setActiveUserState(updatedUser);
+      try {
+        const raw = await AsyncStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const users: User[] = JSON.parse(raw);
+          const updated = users.map((u) =>
+            u.id === activeUser.id
+              ? updatedUser
+              : { ...u, coins: u.coins ?? 0 },
+          );
+          await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        }
+      } catch (e) {
+        console.warn('Failed to save coins:', e);
+      }
+      return true;
+    },
+    [activeUser],
+  );
+
   // ── Log a brush session ───────────────────────────────
   const logBrush = useCallback(
     async (session: BrushSession) => {
@@ -150,6 +181,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         brushLog,
         setActiveUser,
         addCoins,
+        spendCoins,
         logBrush,
         loadBrushLog,
         logout,

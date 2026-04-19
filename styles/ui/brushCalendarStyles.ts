@@ -69,10 +69,9 @@ export const brushCalendarStyles = StyleSheet.create({
   monthGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 4,
   },
   monthDayLabel: {
-    width: (width - 48 - 24) / 7,
+    width: (width - 48) / 7,
     textAlign: 'center',
     fontSize: 11,
     fontWeight: '700',
@@ -80,12 +79,14 @@ export const brushCalendarStyles = StyleSheet.create({
     marginBottom: 4,
   },
   monthCell: {
-    width: (width - 48 - 24) / 7,
+    width: (width - 48) / 7 - 4,
     aspectRatio: 1,
     borderRadius: 8,
     borderWidth: 1.5,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 6,
+    marginHorizontal: 2,
   },
   monthCellDate: {
     fontSize: 12,

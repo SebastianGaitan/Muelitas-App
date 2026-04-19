@@ -5,6 +5,14 @@ import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react-native';
 import { BrushLog, todayKey } from '@/context/UserContext';
 import { brushCalendarStyles as s } from '@/styles/ui/brushCalendarStyles';
 
+const SESSION_COLORS = {
+  morning: '#F39C12',
+  afternoon: '#4A90E2',
+  night: '#9B59B6',
+};
+
+const SESSION_KEYS = ['morning', 'afternoon', 'night'] as const;
+
 const DAY_LABELS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const WEEK_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTH_NAMES = [
@@ -105,22 +113,24 @@ function WeeklyCalendar({
               </Text>
               {!isFuture && count > 0 && (
                 <View style={s.dotRow}>
-                  {[0, 1, 2].map((dot) => (
-                    <View
-                      key={dot}
-                      style={[
-                        s.dot,
-                        {
-                          backgroundColor:
-                            dot < count
+                  {SESSION_KEYS.map((sess) => {
+                    const done = brushLog[key]?.[sess];
+                    return (
+                      <View
+                        key={sess}
+                        style={[
+                          s.dot,
+                          {
+                            backgroundColor: done
                               ? count === 3
                                 ? '#fff'
-                                : accentColor
-                              : 'rgba(255,255,255,0.4)',
-                        },
-                      ]}
-                    />
-                  ))}
+                                : SESSION_COLORS[sess]
+                              : 'rgba(0,0,0,0.1)',
+                          },
+                        ]}
+                      />
+                    );
+                  })}
                 </View>
               )}
             </View>

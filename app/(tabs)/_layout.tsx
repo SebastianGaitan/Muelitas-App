@@ -4,6 +4,7 @@ import {
   IconBook,
   IconCalendar,
   IconDeviceGamepad2,
+  IconGift,
 } from '@tabler/icons-react-native';
 
 export default function TabLayout() {
@@ -44,6 +45,15 @@ export default function TabLayout() {
           title: 'Games',
           tabBarIcon: ({ color, size }) => (
             <IconDeviceGamepad2 stroke={color} size={size} strokeWidth={2} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="rewards"
+        options={{
+          title: 'Rewards',
+          tabBarIcon: ({ color, size }) => (
+            <IconGift stroke={color} size={size} strokeWidth={2} />
           ),
         }}
       />
