@@ -1,7 +1,5 @@
 // styles/ui/brushCalendarStyles.ts
-import { StyleSheet, Dimensions } from 'react-native';
-
-const { width } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
 export const brushCalendarStyles = StyleSheet.create({
   wrapper: {
@@ -66,27 +64,25 @@ export const brushCalendarStyles = StyleSheet.create({
   monthNavBtn: {
     padding: 6,
   },
-  monthGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  monthDayLabel: {
-    width: (width - 48) / 7,
+monthDayLabel: {
+    flex: 1,
     textAlign: 'center',
     fontSize: 11,
     fontWeight: '700',
     color: '#AAAAAA',
     marginBottom: 4,
   },
+  monthCellWrapper: {
+    flex: 1,
+    paddingHorizontal: 2,
+    marginBottom: 6,
+  },
   monthCell: {
-    width: (width - 48) / 7 - 4,
     aspectRatio: 1,
     borderRadius: 8,
     borderWidth: 1.5,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 6,
-    marginHorizontal: 2,
   },
   monthCellDate: {
     fontSize: 12,

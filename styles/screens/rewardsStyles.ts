@@ -132,6 +132,23 @@ export const rewardsStyles = StyleSheet.create({
     color: '#AAAAAA',
   },
 
+  // ── Locked badge (7-day cooldown) ─────────────
+  lockedBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 14,
+    backgroundColor: '#F0F0F0',
+    alignSelf: 'flex-start',
+  },
+  lockedBadgeText: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#AAAAAA',
+  },
+
   // ── Section title ─────────────────────────────
   sectionTitle: {
     fontSize: 16,

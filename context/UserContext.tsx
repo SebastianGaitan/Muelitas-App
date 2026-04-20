@@ -11,6 +11,7 @@ import { User } from '@/constants/users';
 
 const STORAGE_KEY = 'muelitas:users';
 const BRUSH_KEY_PREFIX = 'muelitas:brush:';
+const CLAIMS_KEY_PREFIX = 'muelitas:claims:';
 
 export type BrushSession = 'morning' | 'afternoon' | 'night';
 
@@ -35,28 +36,35 @@ export function todayKey(): string {
 type UserContextType = {
   activeUser: User | null;
   brushLog: BrushLog;
+  claimedRewards: Record<string, number>;
   setActiveUser: (user: User) => void;
   addCoins: (amount: number) => Promise<void>;
   spendCoins: (amount: number) => Promise<boolean>;
+  claimReward: (rewardId: string, cost: number) => Promise<boolean>;
   logBrush: (session: BrushSession) => Promise<void>;
   loadBrushLog: () => Promise<void>;
+  loadClaimedRewards: () => Promise<void>;
   logout: () => void;
 };
 
 const UserContext = createContext<UserContextType>({
   activeUser: null,
   brushLog: {},
+  claimedRewards: {},
   setActiveUser: () => {},
   addCoins: async () => {},
   spendCoins: async () => false,
+  claimReward: async () => false,
   logBrush: async () => {},
   loadBrushLog: async () => {},
+  loadClaimedRewards: async () => {},
   logout: () => {},
 });
 
 export function UserProvider({ children }: { children: ReactNode }) {
   const [activeUser, setActiveUserState] = useState<User | null>(null);
   const [brushLog, setBrushLog] = useState<BrushLog>({});
+  const [claimedRewards, setClaimedRewards] = useState<Record<string, number>>({});
 
   const setActiveUser = useCallback((user: User) => {
     setActiveUserState({ ...user, coins: user.coins ?? 0 });
@@ -65,6 +73,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(() => {
     setActiveUserState(null);
     setBrushLog({});
+    setClaimedRewards({});
   }, []);
 
   const loadBrushLog = useCallback(async () => {
@@ -74,6 +83,16 @@ export function UserProvider({ children }: { children: ReactNode }) {
       setBrushLog(raw ? JSON.parse(raw) : {});
     } catch {
       setBrushLog({});
+    }
+  }, [activeUser]);
+
+  const loadClaimedRewards = useCallback(async () => {
+    if (!activeUser) return;
+    try {
+      const raw = await AsyncStorage.getItem(CLAIMS_KEY_PREFIX + activeUser.id);
+      setClaimedRewards(raw ? JSON.parse(raw) : {});
+    } catch {
+      setClaimedRewards({});
     }
   }, [activeUser]);
 
@@ -133,6 +152,27 @@ export function UserProvider({ children }: { children: ReactNode }) {
     [activeUser],
   );
 
+  // ── Claim a reward (spends coins + records timestamp) ─
+  const claimReward = useCallback(
+    async (rewardId: string, cost: number): Promise<boolean> => {
+      if (!activeUser) return false;
+      const success = await spendCoins(cost);
+      if (!success) return false;
+      const updated = { ...claimedRewards, [rewardId]: Date.now() };
+      setClaimedRewards(updated);
+      try {
+        await AsyncStorage.setItem(
+          CLAIMS_KEY_PREFIX + activeUser.id,
+          JSON.stringify(updated),
+        );
+      } catch (e) {
+        console.warn('Failed to save claimed rewards:', e);
+      }
+      return true;
+    },
+    [activeUser, claimedRewards, spendCoins],
+  );
+
   // ── Log a brush session ───────────────────────────────
   const logBrush = useCallback(
     async (session: BrushSession) => {
@@ -179,11 +219,14 @@ export function UserProvider({ children }: { children: ReactNode }) {
       value={{
         activeUser,
         brushLog,
+        claimedRewards,
         setActiveUser,
         addCoins,
         spendCoins,
+        claimReward,
         logBrush,
         loadBrushLog,
+        loadClaimedRewards,
         logout,
       }}
     >

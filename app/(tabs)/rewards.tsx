@@ -1,12 +1,14 @@
 // app/(tabs)/rewards.tsx
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { IconGift, IconCoin, IconCheck, IconLogout } from '@tabler/icons-react-native';
+import { IconGift, IconCoin, IconCheck, IconLogout, IconLock } from '@tabler/icons-react-native';
 import { useUser } from '@/context/UserContext';
 import CoinsDisplay from '@/components/ui/CoinsDisplay';
 import { rewardsStyles as s } from '@/styles/screens/rewardsStyles';
+
+const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
 type Reward = {
   id: string;
@@ -63,23 +65,30 @@ const REWARDS: Reward[] = [
 function RewardCard({
   reward,
   coins,
+  claimedAt,
   onClaim,
 }: {
   reward: Reward;
   coins: number;
+  claimedAt: number | null;
   onClaim: (reward: Reward) => void;
 }) {
   const [justClaimed, setJustClaimed] = useState(false);
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
+  const msElapsed = claimedAt != null ? Date.now() - claimedAt : SEVEN_DAYS_MS;
+  const isLocked = msElapsed < SEVEN_DAYS_MS;
+  const daysLeft = isLocked
+    ? Math.ceil((SEVEN_DAYS_MS - msElapsed) / (24 * 60 * 60 * 1000))
+    : 0;
+
   const canAfford = coins >= reward.cost;
 
   const handlePress = () => {
-    if (!canAfford || justClaimed) return;
+    if (!canAfford || justClaimed || isLocked) return;
     onClaim(reward);
     setJustClaimed(true);
 
-    // Pop animation
     Animated.sequence([
       Animated.spring(scaleAnim, {
         toValue: 1.03,
@@ -92,9 +101,50 @@ function RewardCard({
         speed: 20,
       }),
     ]).start(() => {
-      // Reset after 3 s so the reward can be claimed again
       setTimeout(() => setJustClaimed(false), 3000);
     });
+  };
+
+  const renderButton = () => {
+    if (isLocked) {
+      return (
+        <View style={s.lockedBadge}>
+          <IconLock stroke="#AAAAAA" size={14} strokeWidth={2.5} />
+          <Text style={s.lockedBadgeText}>
+            {daysLeft === 1 ? 'Available tomorrow' : `Available in ${daysLeft} days`}
+          </Text>
+        </View>
+      );
+    }
+    if (justClaimed) {
+      return (
+        <View style={s.claimedBadge}>
+          <IconCheck stroke="#AAAAAA" size={15} strokeWidth={2.5} />
+          <Text style={s.claimedBadgeText}>Claimed!</Text>
+        </View>
+      );
+    }
+    return (
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={handlePress}
+        disabled={!canAfford}
+        style={[
+          s.claimBtn,
+          { backgroundColor: reward.color },
+          !canAfford && s.claimBtnDisabled,
+        ]}
+      >
+        <IconCoin
+          stroke={canAfford ? '#fff' : '#BBBBBB'}
+          size={15}
+          strokeWidth={2}
+        />
+        <Text style={[s.claimBtnText, !canAfford && s.claimBtnTextDisabled]}>
+          {reward.cost} coins
+        </Text>
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -102,58 +152,32 @@ function RewardCard({
       style={[
         s.rewardCard,
         { borderColor: reward.color + '55', transform: [{ scale: scaleAnim }] },
-        justClaimed && s.rewardCardClaimed,
+        (justClaimed || isLocked) && s.rewardCardClaimed,
       ]}
     >
-      {/* Emoji circle */}
       <View style={[s.emojiCircle, { backgroundColor: reward.color + '18' }]}>
         <Text style={s.rewardEmoji}>{reward.emoji}</Text>
       </View>
 
-      {/* Info + button */}
       <View style={s.rewardInfo}>
         <Text style={s.rewardTitle}>{reward.title}</Text>
         <Text style={s.rewardDesc}>{reward.description}</Text>
-
-        {justClaimed ? (
-          <View style={s.claimedBadge}>
-            <IconCheck stroke="#AAAAAA" size={15} strokeWidth={2.5} />
-            <Text style={s.claimedBadgeText}>Claimed!</Text>
-          </View>
-        ) : (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={handlePress}
-            disabled={!canAfford}
-            style={[
-              s.claimBtn,
-              { backgroundColor: reward.color },
-              !canAfford && s.claimBtnDisabled,
-            ]}
-          >
-            <IconCoin
-              stroke={canAfford ? '#fff' : '#BBBBBB'}
-              size={15}
-              strokeWidth={2}
-            />
-            <Text
-              style={[s.claimBtnText, !canAfford && s.claimBtnTextDisabled]}
-            >
-              {reward.cost} coins
-            </Text>
-          </TouchableOpacity>
-        )}
+        {renderButton()}
       </View>
     </Animated.View>
   );
 }
 
 export default function RewardsScreen() {
-  const { activeUser, spendCoins, logout } = useUser();
+  const { activeUser, claimedRewards, claimReward, loadClaimedRewards, logout } = useUser();
   const router = useRouter();
 
+  useEffect(() => {
+    loadClaimedRewards();
+  }, [loadClaimedRewards]);
+
   const handleClaim = async (reward: Reward) => {
-    await spendCoins(reward.cost);
+    await claimReward(reward.id, reward.cost);
   };
 
   const coins = activeUser?.coins ?? 0;
@@ -196,6 +220,7 @@ export default function RewardsScreen() {
             key={reward.id}
             reward={reward}
             coins={coins}
+            claimedAt={claimedRewards[reward.id] ?? null}
             onClaim={handleClaim}
           />
         ))}

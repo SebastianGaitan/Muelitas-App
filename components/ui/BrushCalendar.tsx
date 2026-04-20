@@ -166,10 +166,15 @@ function MonthlyCalendar({
     if (next <= today) setViewDate(next);
   };
 
-  const cells: (number | null)[] = [
+  const flatCells: (number | null)[] = [
     ...Array(firstDay).fill(null),
     ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
   ];
+  while (flatCells.length % 7 !== 0) flatCells.push(null);
+  const weeks: (number | null)[][] = [];
+  for (let i = 0; i < flatCells.length; i += 7) {
+    weeks.push(flatCells.slice(i, i + 7));
+  }
 
   return (
     <View>
@@ -201,60 +206,65 @@ function MonthlyCalendar({
         ))}
       </View>
 
-      {/* Grid */}
-      <View style={s.monthGrid}>
-        {cells.map((day, i) => {
-          if (!day) return <View key={i} style={s.monthCell} />;
+      {/* Grid — one row per week so flex: 1 columns align on every platform */}
+      {weeks.map((week, wi) => (
+        <View key={wi} style={{ flexDirection: 'row' }}>
+          {week.map((day, di) => {
+            if (!day) {
+              return <View key={di} style={s.monthCellWrapper} />;
+            }
 
-          const key = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-          const count = sessionsCount(brushLog, key);
-          const isToday = key === todayStr;
-          const isFuture = new Date(year, month, day) > today;
+            const key = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const count = sessionsCount(brushLog, key);
+            const isToday = key === todayStr;
+            const isFuture = new Date(year, month, day) > today;
 
-          const bgColor =
-            count === 3
-              ? accentColor
-              : count > 0
-                ? accentColor + '44'
-                : 'transparent';
+            const bgColor =
+              count === 3
+                ? accentColor
+                : count > 0
+                  ? accentColor + '44'
+                  : 'transparent';
 
-          return (
-            <View
-              key={i}
-              style={[
-                s.monthCell,
-                {
-                  backgroundColor: bgColor,
-                  borderColor: isToday
-                    ? accentColor
-                    : count > 0
-                      ? accentColor + '88'
-                      : '#E0E0E0',
-                  borderWidth: isToday ? 2 : 1.5,
-                },
-              ]}
-            >
-              <Text
-                style={[
-                  s.monthCellDate,
-                  {
-                    color:
-                      count === 3
-                        ? '#fff'
+            return (
+              <View key={di} style={s.monthCellWrapper}>
+                <View
+                  style={[
+                    s.monthCell,
+                    {
+                      backgroundColor: bgColor,
+                      borderColor: isToday
+                        ? accentColor
                         : count > 0
-                          ? accentColor
-                          : isFuture
-                            ? '#DDDDDD'
-                            : '#AAAAAA',
-                  },
-                ]}
-              >
-                {day}
-              </Text>
-            </View>
-          );
-        })}
-      </View>
+                          ? accentColor + '88'
+                          : '#E0E0E0',
+                      borderWidth: isToday ? 2 : 1.5,
+                    },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      s.monthCellDate,
+                      {
+                        color:
+                          count === 3
+                            ? '#fff'
+                            : count > 0
+                              ? accentColor
+                              : isFuture
+                                ? '#DDDDDD'
+                                : '#AAAAAA',
+                      },
+                    ]}
+                  >
+                    {day}
+                  </Text>
+                </View>
+              </View>
+            );
+          })}
+        </View>
+      ))}
     </View>
   );
 }

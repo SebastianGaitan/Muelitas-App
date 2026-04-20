@@ -10,4 +10,13 @@ export type User = {
   coins: number;
 };
 
-export const USERS: User[] = [];
+export const USERS: User[] = [
+  {
+    id: 'test-user',
+    name: 'Tester',
+    color: '#9B59B6',
+    borderColor: '#7D3C98',
+    emoji: '🧪',
+    coins: 1000,
+  },
+];
