@@ -24,7 +24,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="learn"
         options={{
-          title: 'Learn',
+          title: 'Aprender',
           tabBarIcon: ({ color, size }) => (
             <IconBook stroke={color} size={size} strokeWidth={2} />
           ),
@@ -42,7 +42,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="games"
         options={{
-          title: 'Games',
+          title: 'Juegos',
           tabBarIcon: ({ color, size }) => (
             <IconDeviceGamepad2 stroke={color} size={size} strokeWidth={2} />
           ),
@@ -51,7 +51,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="rewards"
         options={{
-          title: 'Rewards',
+          title: 'Premios',
           tabBarIcon: ({ color, size }) => (
             <IconGift stroke={color} size={size} strokeWidth={2} />
           ),

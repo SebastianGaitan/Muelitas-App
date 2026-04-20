@@ -100,7 +100,7 @@ export default function AddKidModal({ visible, onClose, onAdd }: Props) {
   const handleOpenCamera = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== 'granted') {
-      alert('Camera permission is needed to take a photo!');
+      alert('¡Se necesita permiso de cámara para tomar una foto!');
       return;
     }
     const result = await ImagePicker.launchCameraAsync({
@@ -162,7 +162,7 @@ export default function AddKidModal({ visible, onClose, onAdd }: Props) {
 
           {/* Header */}
           <View style={nStyles.sheetHeader}>
-            <Text style={nStyles.sheetTitle}>New Kid 🎉</Text>
+            <Text style={nStyles.sheetTitle}>Nuevo niño 🎉</Text>
             <TouchableOpacity onPress={handleClose} style={nStyles.closeBtn}>
               <IconX stroke="#999" size={20} strokeWidth={2} />
             </TouchableOpacity>
@@ -176,10 +176,10 @@ export default function AddKidModal({ visible, onClose, onAdd }: Props) {
             contentContainerStyle={s.formContent}
           >
             {/* Name */}
-            <Text style={nStyles.label}>Name</Text>
+            <Text style={nStyles.label}>Nombre</Text>
             <TextInput
               style={nStyles.input}
-              placeholder="Enter name..."
+              placeholder="Escribe un nombre..."
               placeholderTextColor="#CCC"
               value={name}
               onChangeText={setName}
@@ -206,7 +206,7 @@ export default function AddKidModal({ visible, onClose, onAdd }: Props) {
             </View>
 
             {/* Avatar */}
-            <Text style={nStyles.label}>Avatar</Text>
+            <Text style={nStyles.label}>Foto/Emoji</Text>
 
             <TouchableOpacity
               onPress={handleOpenCamera}
@@ -232,7 +232,7 @@ export default function AddKidModal({ visible, onClose, onAdd }: Props) {
                   />
                   <View style={nStyles.retakeOverlay}>
                     <IconRefresh stroke="#fff" size={18} strokeWidth={2} />
-                    <Text style={nStyles.retakeText}>Retake</Text>
+                    <Text style={nStyles.retakeText}>Retomar</Text>
                   </View>
                 </>
               ) : (
@@ -248,7 +248,7 @@ export default function AddKidModal({ visible, onClose, onAdd }: Props) {
                       { color: palette.borderColor },
                     ]}
                   >
-                    Take a photo
+                    Tomar foto
                   </Text>
                 </>
               )}
@@ -263,7 +263,7 @@ export default function AddKidModal({ visible, onClose, onAdd }: Props) {
               >
                 <IconTrash stroke="#FF4D6D" size={16} strokeWidth={2} />
                 <Text style={nStyles.removePhotoText}>
-                  Remove photo & use emoji instead
+                  Quitar foto y usar emoji
                 </Text>
               </TouchableOpacity>
             )}
@@ -271,7 +271,7 @@ export default function AddKidModal({ visible, onClose, onAdd }: Props) {
             {/* Emoji — hidden if photo taken */}
             {!photoUri && (
               <>
-                <Text style={nStyles.orText}>— or pick an emoji —</Text>
+                <Text style={nStyles.orText}>— o elige un emoji —</Text>
                 <View style={nStyles.emojiRow}>
                   {EMOJI_OPTIONS.map((em, i) => (
                     <TouchableOpacity
@@ -302,7 +302,7 @@ export default function AddKidModal({ visible, onClose, onAdd }: Props) {
               ]}
             >
               <IconCheck stroke="#fff" size={20} strokeWidth={2.5} />
-              <Text style={nStyles.createBtnText}>Add Kid</Text>
+              <Text style={nStyles.createBtnText}>Agregar niño</Text>
             </TouchableOpacity>
           </ScrollView>
         </Animated.View>

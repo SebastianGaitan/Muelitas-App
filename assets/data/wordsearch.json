@@ -18,7 +18,7 @@
   "words": [
     {
       "word": "BRUSH",
-      "clue": "Clean your teeth with this",
+      "clue": "Limpia tus dientes con esto",
       "cells": [
         [8, 3],
         [7, 3],
@@ -29,7 +29,7 @@
     },
     {
       "word": "FLOSS",
-      "clue": "Clean between your teeth",
+      "clue": "Limpia entre tus dientes",
       "cells": [
         [5, 4],
         [6, 5],
@@ -40,7 +40,7 @@
     },
     {
       "word": "CAVITY",
-      "clue": "A hole caused by tooth decay",
+      "clue": "Un hoyo causado por la caries",
       "cells": [
         [0, 11],
         [1, 11],
@@ -52,7 +52,7 @@
     },
     {
       "word": "TOOTH",
-      "clue": "Hard white thing in your mouth",
+      "clue": "Cosa dura y blanca en tu boca",
       "cells": [
         [1, 6],
         [1, 7],
@@ -63,7 +63,7 @@
     },
     {
       "word": "MOLAR",
-      "clue": "Big flat tooth at the back",
+      "clue": "Muela grande y plana de atrás",
       "cells": [
         [10, 4],
         [9, 5],
@@ -74,7 +74,7 @@
     },
     {
       "word": "GUMS",
-      "clue": "Pink tissue holding your teeth",
+      "clue": "Tejido rosado que sostiene tus dientes",
       "cells": [
         [10, 5],
         [10, 6],
@@ -84,7 +84,7 @@
     },
     {
       "word": "PLAQUE",
-      "clue": "Sticky film that damages teeth",
+      "clue": "Película pegajosa que daña los dientes",
       "cells": [
         [6, 10],
         [7, 10],
@@ -96,7 +96,7 @@
     },
     {
       "word": "RINSE",
-      "clue": "Wash your mouth with water",
+      "clue": "Enjuaga tu boca con agua",
       "cells": [
         [1, 0],
         [2, 0],
@@ -107,7 +107,7 @@
     },
     {
       "word": "BRACES",
-      "clue": "Metal wires that straighten teeth",
+      "clue": "Alambres metálicos que enderezan los dientes",
       "cells": [
         [6, 9],
         [7, 9],
@@ -119,7 +119,7 @@
     },
     {
       "word": "ENAMEL",
-      "clue": "Hard outer layer of your tooth",
+      "clue": "Capa dura exterior de tu diente",
       "cells": [
         [0, 1],
         [0, 2],

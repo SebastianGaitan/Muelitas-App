@@ -82,11 +82,31 @@ export const learnStyles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingBottom: 16,
   },
+  counterRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
   counter: {
     fontSize: 14,
     fontWeight: '700',
     color: '#CCCCCC',
     letterSpacing: 1,
+  },
+  voiceBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20,
+    borderWidth: 1.5,
+    maxWidth: 130,
+  },
+  voiceBtnText: {
+    fontSize: 12,
+    fontWeight: '600',
   },
 
   // ── Progress dots ──────────────────────────────
@@ -129,5 +149,65 @@ export const learnStyles = StyleSheet.create({
   },
   navBtnTextDisabled: {
     color: '#CCCCCC',
+  },
+
+  // ── Voice picker ───────────────────────────────
+  pickerBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.35)',
+  },
+  pickerSheet: {
+    backgroundColor: '#FFFBF0',
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    paddingBottom: 32,
+    maxHeight: '65%',
+  },
+  pickerHandle: {
+    width: 40,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: '#E0E0E0',
+    alignSelf: 'center',
+    marginTop: 12,
+    marginBottom: 8,
+  },
+  pickerHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+  },
+  pickerTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#2D2D2D',
+  },
+  pickerList: {
+    paddingHorizontal: 16,
+  },
+  pickerItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderRadius: 14,
+    marginBottom: 4,
+  },
+  pickerItemLeft: {
+    flex: 1,
+    gap: 2,
+  },
+  pickerItemName: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#2D2D2D',
+  },
+  pickerItemMeta: {
+    fontSize: 12,
+    color: '#AAAAAA',
+    fontWeight: '500',
   },
 });

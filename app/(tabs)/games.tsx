@@ -32,7 +32,7 @@ export default function GamesScreen() {
           <View style={s.headerTopRow}>
             <View style={s.headerRow}>
               <IconDeviceGamepad2 stroke="#2D2D2D" size={28} strokeWidth={2} />
-              <Text style={s.headerTitle}>Games</Text>
+              <Text style={s.headerTitle}>Juegos</Text>
             </View>
             <View style={s.headerRight}>
               {activeUser && <CoinsDisplay coins={activeUser.coins} />}
@@ -47,14 +47,14 @@ export default function GamesScreen() {
               </TouchableOpacity>
             </View>
           </View>
-          <Text style={s.headerSubtitle}>Play games and earn coins! 🎮</Text>
+          <Text style={s.headerSubtitle}>¡Juega y gana monedas! 🎮</Text>
         </View>
 
         {/* ── Catch Game ───────────────────────────── */}
         <View style={[s.gameCard, { borderColor: accentColor + '55' }]}>
-          <Text style={s.gameTitle}>🥦 Healthy Munch</Text>
+          <Text style={s.gameTitle}>🥦 Come Sano</Text>
           <Text style={s.gameSubtitle}>
-            Catch healthy food for 2 minutes — earn {CATCH_COINS} coins!
+            ¡Atrapa comida saludable por 2 minutos — gana {CATCH_COINS} monedas!
           </Text>
           <CatchGame
             accentColor={accentColor}
@@ -64,9 +64,9 @@ export default function GamesScreen() {
 
         {/* ── Crossword ────────────────────────────── */}
         <View style={[s.gameCard, { borderColor: accentColor + '55' }]}>
-          <Text style={s.gameTitle}>Dental Crossword</Text>
+          <Text style={s.gameTitle}>Crucigrama Dental</Text>
           <Text style={s.gameSubtitle}>
-            Solve the dental crossword puzzle — earn {CROSSWORD_COINS} coins!
+            ¡Resuelve el crucigrama dental — gana {CROSSWORD_COINS} monedas!
           </Text>
           <CrosswordGame
             accentColor={accentColor}
@@ -76,10 +76,10 @@ export default function GamesScreen() {
 
         {/* ── Word Search ──────────────────────────── */}
         <View style={[s.gameCard, { borderColor: accentColor + '55' }]}>
-          <Text style={s.gameTitle}>Word Search</Text>
+          <Text style={s.gameTitle}>Sopa de Letras</Text>
           <Text style={s.gameSubtitle}>
-            Find all 10 dental words hidden in the grid — earn{' '}
-            {WORDSEARCH_COINS} coins!
+            ¡Encuentra las 10 palabras dentales escondidas — gana{' '}
+            {WORDSEARCH_COINS} monedas!
           </Text>
           <WordSearchGame
             accentColor={accentColor}

@@ -225,7 +225,7 @@ export default function LoginScreen() {
               />
             </View>
             <View style={nStyles.addNameTag}>
-              <Text style={nStyles.addNameText}>New Kid</Text>
+              <Text style={nStyles.addNameText}>Nuevo niño</Text>
             </View>
           </TouchableOpacity>
         </View>

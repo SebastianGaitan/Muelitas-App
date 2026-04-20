@@ -1,7 +1,8 @@
 // app/(tabs)/learn.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { ReactElement } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Modal, FlatList } from 'react-native';
+import * as Speech from 'expo-speech';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   IconBook,
@@ -11,6 +12,9 @@ import {
   IconArrowLeft,
   IconArrowRight,
   IconLogout,
+  IconMicrophone,
+  IconCheck,
+  IconX,
 } from '@tabler/icons-react-native';
 import FlashCard from '@/components/ui/FlashCard';
 import CoinsDisplay from '@/components/ui/CoinsDisplay';
@@ -54,6 +58,16 @@ export default function LearnScreen() {
   const categories: Category[] = questionsData.categories;
   const [activeCategoryId, setActiveCategoryId] = useState(categories[0].id);
   const [cardIndex, setCardIndex] = useState(0);
+  const [voices, setVoices] = useState<Speech.Voice[]>([]);
+  const [selectedVoice, setSelectedVoice] = useState<Speech.Voice | null>(null);
+  const [showVoicePicker, setShowVoicePicker] = useState(false);
+
+  useEffect(() => {
+    Speech.getAvailableVoicesAsync().then((all) => {
+      const spanish = all.filter((v) => v.language.startsWith('es'));
+      setVoices(spanish);
+    });
+  }, []);
 
   const activeCategory = categories.find((c) => c.id === activeCategoryId)!;
   const totalCards = activeCategory.cards.length;
@@ -79,7 +93,7 @@ export default function LearnScreen() {
         <View style={s.headerTopRow}>
           <View style={s.headerRow}>
             <IconBook stroke="#2D2D2D" size={28} strokeWidth={2.5} />
-            <Text style={s.headerTitle}>Learn</Text>
+            <Text style={s.headerTitle}>Aprender</Text>
           </View>
           <View style={s.headerRight}>
             {activeUser && <CoinsDisplay coins={activeUser.coins} />}
@@ -94,7 +108,7 @@ export default function LearnScreen() {
             </TouchableOpacity>
           </View>
         </View>
-        <Text style={s.headerSubtitle}>Tap a card to reveal the answer!</Text>
+        <Text style={s.headerSubtitle}>¡Toca una tarjeta para ver la respuesta!</Text>
       </View>
 
       {/* ── Category tabs ────────────────────────────── */}
@@ -129,10 +143,22 @@ export default function LearnScreen() {
 
       {/* ── Card area ────────────────────────────────── */}
       <View style={s.cardArea}>
-        {/* Card counter */}
-        <Text style={s.counter}>
-          {cardIndex + 1} / {totalCards}
-        </Text>
+        {/* Counter row */}
+        <View style={s.counterRow}>
+          <Text style={s.counter}>
+            {cardIndex + 1} / {totalCards}
+          </Text>
+          <TouchableOpacity
+            style={[s.voiceBtn, { borderColor: activeCategory.borderColor + '66' }]}
+            onPress={() => setShowVoicePicker(true)}
+            activeOpacity={0.7}
+          >
+            <IconMicrophone stroke={activeCategory.borderColor} size={13} strokeWidth={2.5} />
+            <Text style={[s.voiceBtnText, { color: activeCategory.borderColor }]} numberOfLines={1}>
+              {selectedVoice ? selectedVoice.name : 'Voz auto'}
+            </Text>
+          </TouchableOpacity>
+        </View>
 
         {/* Flash card — key forces remount on card change so it resets flip */}
         <FlashCard
@@ -141,6 +167,7 @@ export default function LearnScreen() {
           answer={currentCard.answer}
           color={activeCategory.color}
           borderColor={activeCategory.borderColor}
+          voiceId={selectedVoice?.identifier}
         />
 
         {/* Progress dots */}
@@ -184,7 +211,7 @@ export default function LearnScreen() {
                 cardIndex === 0 && s.navBtnTextDisabled,
               ]}
             >
-              Prev
+              Anterior
             </Text>
           </TouchableOpacity>
 
@@ -208,7 +235,7 @@ export default function LearnScreen() {
                 cardIndex === totalCards - 1 && s.navBtnTextDisabled,
               ]}
             >
-              Next
+              Siguiente
             </Text>
             <IconArrowRight
               stroke={cardIndex === totalCards - 1 ? '#CCCCCC' : '#fff'}
@@ -218,6 +245,61 @@ export default function LearnScreen() {
           </TouchableOpacity>
         </View>
       </View>
+      {/* ── Voice picker modal ───────────────────────── */}
+      <Modal
+        visible={showVoicePicker}
+        transparent
+        animationType="slide"
+        statusBarTranslucent
+        onRequestClose={() => setShowVoicePicker(false)}
+      >
+        <TouchableOpacity
+          style={s.pickerBackdrop}
+          activeOpacity={1}
+          onPress={() => setShowVoicePicker(false)}
+        />
+        <View style={s.pickerSheet}>
+          <View style={s.pickerHandle} />
+          <View style={s.pickerHeader}>
+            <Text style={s.pickerTitle}>Selecciona una voz</Text>
+            <TouchableOpacity onPress={() => setShowVoicePicker(false)}>
+              <IconX stroke="#999" size={20} strokeWidth={2} />
+            </TouchableOpacity>
+          </View>
+
+          <FlatList
+            data={[{ identifier: '', name: 'Automática', language: '', quality: '' } as Speech.Voice, ...voices]}
+            keyExtractor={(item) => item.identifier || 'auto'}
+            style={s.pickerList}
+            renderItem={({ item }) => {
+              const isAuto = item.identifier === '';
+              const isSelected = isAuto ? selectedVoice === null : selectedVoice?.identifier === item.identifier;
+              return (
+                <TouchableOpacity
+                  style={[s.pickerItem, isSelected && { backgroundColor: activeCategory.borderColor + '18' }]}
+                  onPress={() => {
+                    setSelectedVoice(isAuto ? null : item);
+                    setShowVoicePicker(false);
+                  }}
+                  activeOpacity={0.7}
+                >
+                  <View style={s.pickerItemLeft}>
+                    <Text style={[s.pickerItemName, isSelected && { color: activeCategory.borderColor }]}>
+                      {item.name}
+                    </Text>
+                    {!isAuto && (
+                      <Text style={s.pickerItemMeta}>{item.language}{item.quality ? ` · ${item.quality}` : ''}</Text>
+                    )}
+                  </View>
+                  {isSelected && (
+                    <IconCheck stroke={activeCategory.borderColor} size={18} strokeWidth={2.5} />
+                  )}
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }

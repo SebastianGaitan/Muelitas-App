@@ -2,165 +2,165 @@
   "categories": [
     {
       "id": "basics",
-      "title": "Brushing",
+      "title": "Cepillado",
       "emoji": "🪥",
       "color": "#FFB3C6",
       "borderColor": "#FF6B9D",
       "cards": [
         {
           "id": "b1",
-          "question": "How many times a day should you brush your teeth?",
-          "answer": "2 times a day — once in the morning and once before bed!",
+          "question": "¿Cuántas veces al día debes cepillarte los dientes?",
+          "answer": "¡2 veces al día — por la mañana y antes de dormir!",
           "emoji": "🌅"
         },
         {
           "id": "b2",
-          "question": "How long should you brush your teeth?",
-          "answer": "For 2 whole minutes — that's as long as a short song!",
+          "question": "¿Cuánto tiempo debes cepillarte los dientes?",
+          "answer": "¡Por 2 minutos enteros — el tiempo de una canción corta!",
           "emoji": "⏱️"
         },
         {
           "id": "b3",
-          "question": "How often should you change your toothbrush?",
-          "answer": "Every 3 months, or sooner if the bristles look worn out!",
+          "question": "¿Cada cuánto debes cambiar tu cepillo de dientes?",
+          "answer": "¡Cada 3 meses, o antes si las cerdas se ven desgastadas!",
           "emoji": "🔄"
         },
         {
           "id": "b4",
-          "question": "Should you brush your tongue too?",
-          "answer": "Yes! Brushing your tongue removes bad breath bacteria!",
+          "question": "¿También debes cepillarte la lengua?",
+          "answer": "¡Sí! ¡Cepillar tu lengua elimina las bacterias del mal aliento!",
           "emoji": "👅"
         },
         {
           "id": "b5",
-          "question": "What kind of toothbrush is best for kids?",
-          "answer": "A soft-bristled toothbrush that fits comfortably in your mouth!",
+          "question": "¿Qué tipo de cepillo es mejor para los niños?",
+          "answer": "¡Un cepillo de cerdas suaves que quepa cómodamente en tu boca!",
           "emoji": "✨"
         }
       ]
     },
     {
       "id": "flossing",
-      "title": "Flossing",
+      "title": "Hilo Dental",
       "emoji": "🧵",
       "color": "#B3D9FF",
       "borderColor": "#4A90E2",
       "cards": [
         {
           "id": "f1",
-          "question": "How often should you floss your teeth?",
-          "answer": "Once a day — usually before bedtime is best!",
+          "question": "¿Con qué frecuencia debes usar hilo dental?",
+          "answer": "¡Una vez al día — antes de dormir es lo mejor!",
           "emoji": "🌙"
         },
         {
           "id": "f2",
-          "question": "Why is flossing important?",
-          "answer": "It removes food and plaque from between your teeth where your toothbrush can't reach!",
+          "question": "¿Por qué es importante el hilo dental?",
+          "answer": "¡Elimina comida y placa entre los dientes donde el cepillo no llega!",
           "emoji": "🦠"
         },
         {
           "id": "f3",
-          "question": "At what age should kids start flossing?",
-          "answer": "As soon as two teeth touch each other — usually around age 2 or 3!",
+          "question": "¿A qué edad deben los niños empezar a usar hilo dental?",
+          "answer": "¡En cuanto dos dientes se toquen — generalmente alrededor de los 2 o 3 años!",
           "emoji": "👶"
         }
       ]
     },
     {
       "id": "teeth",
-      "title": "Teeth Facts",
+      "title": "Datos sobre Dientes",
       "emoji": "🦷",
       "color": "#C8F7C5",
       "borderColor": "#27AE60",
       "cards": [
         {
           "id": "t1",
-          "question": "How many baby teeth do kids have?",
-          "answer": "20 baby teeth in total — 10 on top and 10 on the bottom!",
+          "question": "¿Cuántos dientes de leche tienen los niños?",
+          "answer": "¡20 dientes de leche en total — 10 arriba y 10 abajo!",
           "emoji": "🔢"
         },
         {
           "id": "t2",
-          "question": "How many adult teeth will you grow?",
-          "answer": "32 adult teeth, including 4 wisdom teeth!",
+          "question": "¿Cuántos dientes de adulto tendrás?",
+          "answer": "¡32 dientes de adulto, incluyendo 4 muelas del juicio!",
           "emoji": "🔢"
         },
         {
           "id": "t3",
-          "question": "What is the hardest substance in your body?",
-          "answer": "Tooth enamel — the outer layer of your teeth!",
+          "question": "¿Cuál es la sustancia más dura de tu cuerpo?",
+          "answer": "¡El esmalte dental — la capa exterior de los dientes!",
           "emoji": "💪"
         },
         {
           "id": "t4",
-          "question": "What causes cavities?",
-          "answer": "Bacteria eat leftover sugar on your teeth and make acids that create holes called cavities!",
+          "question": "¿Qué causa las caries?",
+          "answer": "¡Las bacterias se comen el azúcar en tus dientes y producen ácidos que crean hoyos llamados caries!",
           "emoji": "🍬"
         },
         {
           "id": "t5",
-          "question": "What are molars used for?",
-          "answer": "Molars are the big flat teeth in the back — they grind and crush food!",
+          "question": "¿Para qué sirven las muelas?",
+          "answer": "¡Las muelas son los dientes grandes de atrás — trituran y machacan la comida!",
           "emoji": "😬"
         }
       ]
     },
     {
       "id": "food",
-      "title": "Food & Drinks",
+      "title": "Comida y Bebidas",
       "emoji": "🥦",
       "color": "#FFE5B3",
       "borderColor": "#F39C12",
       "cards": [
         {
           "id": "fd1",
-          "question": "Which drink is best for your teeth?",
-          "answer": "Water! It washes away food and helps keep your mouth clean!",
+          "question": "¿Cuál bebida es mejor para los dientes?",
+          "answer": "¡El agua! Lava la comida y ayuda a mantener la boca limpia.",
           "emoji": "💧"
         },
         {
           "id": "fd2",
-          "question": "Which foods help make teeth strong?",
-          "answer": "Milk, cheese, yogurt, and vegetables — they have calcium and vitamins!",
+          "question": "¿Qué alimentos ayudan a fortalecer los dientes?",
+          "answer": "¡La leche, el queso, el yogur y los vegetales — tienen calcio y vitaminas!",
           "emoji": "🥛"
         },
         {
           "id": "fd3",
-          "question": "Why is candy bad for your teeth?",
-          "answer": "Sugar feeds bacteria in your mouth, which then makes acids that damage your teeth!",
+          "question": "¿Por qué los dulces son malos para los dientes?",
+          "answer": "¡El azúcar alimenta las bacterias en tu boca, que luego producen ácidos que dañan tus dientes!",
           "emoji": "🍭"
         },
         {
           "id": "fd4",
-          "question": "Is juice good or bad for teeth?",
-          "answer": "Juice has a lot of sugar — it's better to eat the fruit instead!",
+          "question": "¿El jugo es bueno o malo para los dientes?",
+          "answer": "¡El jugo tiene mucha azúcar — es mejor comer la fruta directamente!",
           "emoji": "🍎"
         }
       ]
     },
     {
       "id": "dentist",
-      "title": "The Dentist",
+      "title": "El Dentista",
       "emoji": "🏥",
       "color": "#E8B3FF",
       "borderColor": "#9B59B6",
       "cards": [
         {
           "id": "d1",
-          "question": "How often should you visit the dentist?",
-          "answer": "Every 6 months — twice a year for a checkup and cleaning!",
+          "question": "¿Con qué frecuencia debes visitar al dentista?",
+          "answer": "¡Cada 6 meses — dos veces al año para una revisión y limpieza!",
           "emoji": "📅"
         },
         {
           "id": "d2",
-          "question": "When should a child have their first dentist visit?",
-          "answer": "By their first birthday or when their first tooth appears!",
+          "question": "¿Cuándo debe ir un niño al dentista por primera vez?",
+          "answer": "¡Al cumplir el primer año o cuando salga el primer diente!",
           "emoji": "👶"
         },
         {
           "id": "d3",
-          "question": "What does fluoride do for your teeth?",
-          "answer": "Fluoride makes your tooth enamel stronger and helps prevent cavities!",
+          "question": "¿Qué hace el flúor en tus dientes?",
+          "answer": "¡El flúor fortalece el esmalte dental y ayuda a prevenir las caries!",
           "emoji": "🛡️"
         }
       ]

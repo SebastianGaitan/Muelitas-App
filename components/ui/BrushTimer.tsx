@@ -26,9 +26,9 @@ type Props = {
 type TimerState = 'idle' | 'playing' | 'done';
 
 const SESSION_LABELS: Record<BrushSession, string> = {
-  morning: 'Morning Brush',
-  afternoon: 'Afternoon Brush',
-  night: 'Night Brush',
+  morning: 'Cepillado de mañana',
+  afternoon: 'Cepillado de tarde',
+  night: 'Cepillado de noche',
 };
 
 export default function BrushTimer({
@@ -193,18 +193,18 @@ export default function BrushTimer({
                   onPress={handleStart}
                   activeOpacity={0.85}
                 >
-                  <Text style={s.startBtnText}>Start Brushing! 🦷</Text>
+                  <Text style={s.startBtnText}>¡Empezar a cepillar! 🦷</Text>
                 </TouchableOpacity>
               )}
 
               {timerState === 'playing' && (
                 <Text style={s.playingHint}>
-                  Keep brushing along to the song!
+                  ¡Sigue cepillando con la canción!
                 </Text>
               )}
 
               <TouchableOpacity style={s.cancelBtn} onPress={handleClose}>
-                <Text style={s.cancelBtnText}>Cancel</Text>
+                <Text style={s.cancelBtnText}>Cancelar</Text>
               </TouchableOpacity>
             </>
           ) : (
@@ -212,14 +212,14 @@ export default function BrushTimer({
               style={[s.doneContainer, { transform: [{ scale: scaleAnim }] }]}
             >
               <Text style={s.doneEmoji}>🎉</Text>
-              <Text style={s.doneTitle}>Great job!</Text>
+              <Text style={s.doneTitle}>¡Muy bien!</Text>
               <Text style={s.doneSubtitle}>
-                Your teeth are sparkling clean!
+                ¡Tus dientes están brillantes!
               </Text>
               <View style={s.coinsEarned}>
                 <IconCoin stroke="#F39C12" size={24} strokeWidth={2} />
                 <Text style={s.coinsEarnedText}>
-                  +{coinsEarned} coins{isBonus ? ' (bonus! 🎊)' : ''}
+                  +{coinsEarned} monedas{isBonus ? ' (¡bonus! 🎊)' : ''}
                 </Text>
               </View>
               <TouchableOpacity
@@ -227,7 +227,7 @@ export default function BrushTimer({
                 onPress={onComplete}
                 activeOpacity={0.85}
               >
-                <Text style={s.doneBtnText}>Awesome! ✓</Text>
+                <Text style={s.doneBtnText}>¡Genial! ✓</Text>
               </TouchableOpacity>
             </Animated.View>
           )}

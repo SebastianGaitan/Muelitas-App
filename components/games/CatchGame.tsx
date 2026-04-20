@@ -384,7 +384,7 @@ export default function CatchGame({ accentColor, onWin }: Props) {
           onPress={() => setFullscreen(true)}
           activeOpacity={0.85}
         >
-          <Text style={s.previewBtnText}>🎮 Play Now!</Text>
+          <Text style={s.previewBtnText}>🎮 ¡Jugar ahora!</Text>
         </TouchableOpacity>
       )}
 
@@ -464,17 +464,16 @@ export default function CatchGame({ accentColor, onWin }: Props) {
             {gameState === 'idle' && (
               <View style={s.overlay}>
                 <Text style={s.overlayEmoji}>🎮</Text>
-                <Text style={s.overlayTitle}>Catch the healthy food!</Text>
+                <Text style={s.overlayTitle}>¡Atrapa la comida saludable!</Text>
                 <Text style={s.overlaySubtitle}>
-                  Eat fruits & veggies, avoid junk food!{'\n'}Survive 2 minutes
-                  to win!
+                  ¡Come frutas y verduras, evita la comida chatarra!{'\n'}¡Sobrevive 2 minutos para ganar!
                 </Text>
                 <TouchableOpacity
                   style={[s.startBtn, { backgroundColor: accentColor }]}
                   onPress={startGame}
                   activeOpacity={0.85}
                 >
-                  <Text style={s.startBtnText}>Start Game!</Text>
+                  <Text style={s.startBtnText}>¡Comenzar!</Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -482,20 +481,20 @@ export default function CatchGame({ accentColor, onWin }: Props) {
             {gameState === 'won' && (
               <View style={s.overlay}>
                 <Text style={s.overlayEmoji}>🏆</Text>
-                <Text style={s.overlayTitle}>Amazing! You won!</Text>
+                <Text style={s.overlayTitle}>¡Increíble! ¡Ganaste!</Text>
                 <Text style={s.overlaySubtitle}>
-                  You survived with {lives} tooth/teeth left!
+                  ¡Sobreviviste con {lives} diente(s)!
                 </Text>
                 <View style={s.overlayCoins}>
                   <IconCoin stroke="#F39C12" size={24} strokeWidth={2} />
-                  <Text style={s.overlayCoinsText}>+{WIN_COINS} coins</Text>
+                  <Text style={s.overlayCoinsText}>+{WIN_COINS} monedas</Text>
                 </View>
                 <TouchableOpacity
                   style={[s.startBtn, { backgroundColor: accentColor }]}
                   onPress={startGame}
                   activeOpacity={0.85}
                 >
-                  <Text style={s.startBtnText}>Play Again!</Text>
+                  <Text style={s.startBtnText}>¡Jugar de nuevo!</Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -503,16 +502,16 @@ export default function CatchGame({ accentColor, onWin }: Props) {
             {gameState === 'lost' && (
               <View style={s.overlay}>
                 <Text style={s.overlayEmoji}>😢</Text>
-                <Text style={s.overlayTitle}>Oh no! Try again!</Text>
+                <Text style={s.overlayTitle}>¡Ay no! ¡Inténtalo de nuevo!</Text>
                 <Text style={s.overlaySubtitle}>
-                  Don't eat the sugary stuff!
+                  ¡No comas lo azucarado!
                 </Text>
                 <TouchableOpacity
                   style={[s.startBtn, { backgroundColor: accentColor }]}
                   onPress={startGame}
                   activeOpacity={0.85}
                 >
-                  <Text style={s.startBtnText}>Try Again!</Text>
+                  <Text style={s.startBtnText}>¡Intentar de nuevo!</Text>
                 </TouchableOpacity>
               </View>
             )}

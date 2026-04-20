@@ -254,7 +254,7 @@ export default function CrosswordGame({ accentColor, onWin }: Props) {
         activeOpacity={0.85}
       >
         <IconLetterCase stroke="#fff" size={18} strokeWidth={2} />
-        <Text style={s.previewBtnText}>Play Now!</Text>
+        <Text style={s.previewBtnText}>¡Jugar ahora!</Text>
       </TouchableOpacity>
 
       {/* Fullscreen modal */}
@@ -275,14 +275,14 @@ export default function CrosswordGame({ accentColor, onWin }: Props) {
             >
               <IconX stroke="#555" size={18} strokeWidth={2.5} />
             </TouchableOpacity>
-            <Text style={s.headerTitle}>🦷 Dental Crossword</Text>
+            <Text style={s.headerTitle}>🦷 Crucigrama Dental</Text>
             <TouchableOpacity
               style={[s.checkBtn, { backgroundColor: accentColor }]}
               onPress={handleCheck}
               activeOpacity={0.85}
             >
               <IconCheck stroke="#fff" size={14} strokeWidth={2.5} />
-              <Text style={s.checkBtnText}>Check</Text>
+              <Text style={s.checkBtnText}>Revisar</Text>
             </TouchableOpacity>
           </View>
 
@@ -336,7 +336,7 @@ export default function CrosswordGame({ accentColor, onWin }: Props) {
           {/* Clues */}
           <ScrollView style={s.cluesScroll} keyboardShouldPersistTaps="always">
             <View style={s.cluesSection}>
-              <Text style={s.cluesSectionTitle}>Across</Text>
+              <Text style={s.cluesSectionTitle}>Horizontal</Text>
               {acrossClues.map((word) => (
                 <TouchableOpacity
                   key={word.id}
@@ -365,7 +365,7 @@ export default function CrosswordGame({ accentColor, onWin }: Props) {
             </View>
 
             <View style={s.cluesSection}>
-              <Text style={s.cluesSectionTitle}>Down</Text>
+              <Text style={s.cluesSectionTitle}>Vertical</Text>
               {downClues.map((word) => (
                 <TouchableOpacity
                   key={word.id}
@@ -399,18 +399,18 @@ export default function CrosswordGame({ accentColor, onWin }: Props) {
           {won && (
             <View style={s.overlay}>
               <IconTrophy stroke="#F39C12" size={72} strokeWidth={1.5} />
-              <Text style={s.overlayTitle}>You solved it!</Text>
-              <Text style={s.overlaySubtitle}>Amazing dental knowledge!</Text>
+              <Text style={s.overlayTitle}>¡Lo resolviste!</Text>
+              <Text style={s.overlaySubtitle}>¡Excelente conocimiento dental!</Text>
               <View style={s.overlayCoins}>
                 <IconCoin stroke="#F39C12" size={24} strokeWidth={2} />
-                <Text style={s.overlayCoinsText}>+{WIN_COINS} coins</Text>
+                <Text style={s.overlayCoinsText}>+{WIN_COINS} monedas</Text>
               </View>
               <TouchableOpacity
                 style={[s.playAgainBtn, { backgroundColor: accentColor }]}
                 onPress={handleExit}
                 activeOpacity={0.85}
               >
-                <Text style={s.playAgainBtnText}>Back to Games</Text>
+                <Text style={s.playAgainBtnText}>Volver a Juegos</Text>
               </TouchableOpacity>
             </View>
           )}

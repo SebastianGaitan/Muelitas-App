@@ -84,11 +84,11 @@ export default function DeleteUserModal({
           </View>
 
           {/* ── Text ────────────────────────────── */}
-          <Text style={s.title}>Remove profile?</Text>
+          <Text style={s.title}>¿Eliminar perfil?</Text>
           <Text style={s.subtitle}>
-            Are you sure you want to delete{'\n'}
+            ¿Seguro que quieres eliminar el perfil de{'\n'}
             <Text style={s.nameHighlight}>{user.name}</Text>
-            {"'s profile? This can't be undone."}
+            {'? No se puede deshacer.'}
           </Text>
 
           {/* ── Buttons ─────────────────────────── */}
@@ -98,7 +98,7 @@ export default function DeleteUserModal({
               activeOpacity={0.8}
               onPress={handleCancel}
             >
-              <Text style={s.cancelText}>Cancel</Text>
+              <Text style={s.cancelText}>Cancelar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -107,7 +107,7 @@ export default function DeleteUserModal({
               onPress={handleConfirm}
             >
               <IconTrash stroke="#fff" size={18} strokeWidth={2.5} />
-              <Text style={s.deleteText}>Delete</Text>
+              <Text style={s.deleteText}>Eliminar</Text>
             </TouchableOpacity>
           </View>
         </Animated.View>

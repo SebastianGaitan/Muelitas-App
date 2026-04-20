@@ -218,7 +218,7 @@ export default function WordSearchGame({ accentColor, onWin }: Props) {
         activeOpacity={0.85}
       >
         <IconSearch stroke="#fff" size={18} strokeWidth={2.5} />
-        <Text style={s.previewBtnText}>Play Now!</Text>
+        <Text style={s.previewBtnText}>¡Jugar ahora!</Text>
       </TouchableOpacity>
 
       {/* Fullscreen modal */}
@@ -239,7 +239,7 @@ export default function WordSearchGame({ accentColor, onWin }: Props) {
             >
               <IconX stroke="#555" size={18} strokeWidth={2.5} />
             </TouchableOpacity>
-            <Text style={s.headerTitle}>🦷 Word Search</Text>
+            <Text style={s.headerTitle}>🦷 Sopa de Letras</Text>
             <View style={s.scoreBox}>
               <IconSearch stroke="#F39C12" size={14} strokeWidth={2.5} />
               <Text style={s.scoreText}>
@@ -287,13 +287,13 @@ export default function WordSearchGame({ accentColor, onWin }: Props) {
           {/* Clue bar */}
           <View style={s.clueBar}>
             <Text style={s.clueText} numberOfLines={1}>
-              {activeClue || 'Drag to select a word'}
+              {activeClue || 'Arrastra para seleccionar'}
             </Text>
           </View>
 
           {/* Word list */}
           <ScrollView style={s.wordList} showsVerticalScrollIndicator={false}>
-            <Text style={s.wordListTitle}>Find these words</Text>
+            <Text style={s.wordListTitle}>Encuentra estas palabras</Text>
             <View style={s.wordChips}>
               {WORDS.map((entry) => {
                 const found = foundWords.has(entry.word);
@@ -318,18 +318,18 @@ export default function WordSearchGame({ accentColor, onWin }: Props) {
           {won && (
             <View style={s.overlay}>
               <IconTrophy stroke="#F39C12" size={72} strokeWidth={1.5} />
-              <Text style={s.overlayTitle}>You found them all!</Text>
-              <Text style={s.overlaySubtitle}>Great dental vocabulary! 🦷</Text>
+              <Text style={s.overlayTitle}>¡Las encontraste todas!</Text>
+              <Text style={s.overlaySubtitle}>¡Excelente vocabulario dental! 🦷</Text>
               <View style={s.overlayCoins}>
                 <IconCoin stroke="#F39C12" size={24} strokeWidth={2} />
-                <Text style={s.overlayCoinsText}>+{WIN_COINS} coins</Text>
+                <Text style={s.overlayCoinsText}>+{WIN_COINS} monedas</Text>
               </View>
               <TouchableOpacity
                 style={[s.exitOverlayBtn, { backgroundColor: accentColor }]}
                 onPress={handleExit}
                 activeOpacity={0.85}
               >
-                <Text style={s.exitOverlayBtnText}>Back to Games</Text>
+                <Text style={s.exitOverlayBtnText}>Volver a Juegos</Text>
               </TouchableOpacity>
             </View>
           )}

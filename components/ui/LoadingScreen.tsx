@@ -68,7 +68,7 @@ export default function LoadingScreen({ duration = 2000 }: Props) {
         />
 
         {/* ── Label ────────────────────────────────── */}
-        <Text style={s.label}>Loading...</Text>
+        <Text style={s.label}>Cargando...</Text>
 
         {/* ── Loading bar ──────────────────────────── */}
         <View style={s.barTrack}>

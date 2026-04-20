@@ -30,22 +30,22 @@ const SESSIONS: {
 }[] = [
   {
     id: 'morning',
-    label: 'Morning',
-    sublabel: 'Start your day fresh!',
+    label: 'Mañana',
+    sublabel: '¡Empieza el día limpio!',
     color: '#F39C12',
     icon: (c) => <IconSunrise stroke={c} size={24} strokeWidth={2} />,
   },
   {
     id: 'afternoon',
-    label: 'Afternoon',
-    sublabel: 'Keep it clean after lunch!',
+    label: 'Tarde',
+    sublabel: '¡Mantenlo limpio después del almuerzo!',
     color: '#4A90E2',
     icon: (c) => <IconSun stroke={c} size={24} strokeWidth={2} />,
   },
   {
     id: 'night',
-    label: 'Night',
-    sublabel: 'Goodnight, clean teeth!',
+    label: 'Noche',
+    sublabel: '¡Buenas noches, dientes limpios!',
     color: '#9B59B6',
     icon: (c) => <IconMoon stroke={c} size={24} strokeWidth={2} />,
   },
@@ -133,14 +133,14 @@ export default function BrushScreen() {
           </View>
           <Text style={s.headerSubtitle}>
             {doneTodayCount === 3
-              ? 'Amazing! All done for today! 🌟'
-              : `${doneTodayCount}/3 sessions done today`}
+              ? '¡Increíble! ¡Todo listo por hoy! 🌟'
+              : `${doneTodayCount}/3 sesiones de hoy`}
           </Text>
         </View>
 
         {/* ── Today's sessions ───────────────────────── */}
         <View style={s.sessionsWrapper}>
-          <Text style={s.sectionTitle}>Today's Sessions</Text>
+          <Text style={s.sectionTitle}>Sesiones de Hoy</Text>
           {SESSIONS.map((session) => {
             const done = todayLog[session.id];
             const color = done ? '#CCCCCC' : session.color;
@@ -169,7 +169,7 @@ export default function BrushScreen() {
                         { color: done ? '#CCCCCC' : color + 'BB' },
                       ]}
                     >
-                      {done ? 'Done for today!' : session.sublabel}
+                      {done ? '¡Ya terminaste!' : session.sublabel}
                     </Text>
                   </View>
                 </View>
@@ -187,7 +187,7 @@ export default function BrushScreen() {
                     <IconCoin stroke="#fff" size={16} strokeWidth={2} />
                   )}
                   <Text style={[s.sessionBadgeText, { color: '#fff' }]}>
-                    {done ? 'Done' : '+5'}
+                    {done ? 'Listo' : '+5'}
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -207,7 +207,7 @@ export default function BrushScreen() {
                 calendarMode === 'weekly' && s.tabBtnTextActive,
               ]}
             >
-              Weekly
+              Semanal
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -220,7 +220,7 @@ export default function BrushScreen() {
                 calendarMode === 'monthly' && s.tabBtnTextActive,
               ]}
             >
-              Monthly
+              Mensual
             </Text>
           </TouchableOpacity>
         </View>
